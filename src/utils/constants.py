@@ -56,12 +56,15 @@ MODELS_MAPPER = {
     "minigpt4_ft_open_ended": "MiniGPT4-7b-ft", 
     ### mplug_owl ###
     "mplug_owl1": "mPLUG-Owl-1",
+    "mplug_owl1_wo_contr": "mPLUG-Owl-1-wo-contr",
     "mplug_owl2": "mPLUG-Owl-2",
     "mplug_owl1_lrv": "mPLUG-Owl-LRV",
-    "mplug_owl1_lora_open_ended_single": "mPLUG-Owl-ft-single-round", 
+    "mplug_owl1_lora_open_ended_single": "mPLUG-Owl-ft-single-round",
     "mplug_owl1_lora_mc_single": "mPLUG-Owl-ft-single-round",
     "mplug_owl1_lora_open_ended_single_wo_contr": "mPLUG-Owl-ft-single-round-wo-contr",
     "mplug_owl1_lora_mc_single_wo_contr": "mPLUG-Owl-ft-single-round-wo-contr",
+    "mplug_owl1_lora_open_ended_30k": "mPLUG-Owl-ft-30k",
+    "mplug_owl1_lora_open_ended_30k_wo_contr": "mPLUG-Owl-ft-30k-wo-contr",
     ### qwen ###
     "Qwenvl_7b_instruct": "QwenVL-7b",
     "Qwen2vl_7b_instruct": "Qwen2VL-instruct-7b",
@@ -84,7 +87,7 @@ MODELS_MAPPER = {
     "llava-v1.5-7b_lora_open_ended_single_wo_contr": "LLaVa1.5-7b-ft-wo-contr-single-round",
     "llava-v1.5-7b_lora_open_ended_multi_wo_contr": "LLaVa1.5-7b-ft-wo-contr-multi-round",
     "llava-v1.5-7b_lora_open_ended_single_30k": "LLaVa1.5-7b-ft-single-round-30k",
-
+    "llava-v1.5-7b_lora_open_ended_single_30k_wo_contr": "LLaVa1.5-7b-ft-wo-contr-single-round-30k",
 }
 
 OBJECT_CATEGORIES = {

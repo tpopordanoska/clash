@@ -99,6 +99,8 @@ python print_table_with_error_bars.py \
   --test_data_path ../data/synthetic_captions_test_filtered.json
 ```
 
+By default this prints the modality-preference and category tables; `--ft_model_list` prints the fine-tuning table instead, as described in [Fine-tuned open-source models](#fine-tuned-open-source-models).
+
 ## Reproducing the main results
 
 The `results/` directory contains the evaluated predictions for reproducing the main results in the paper, for the four API models we report (`gemini-2.5-flash-lite`, `gemini-2.5-pro`, `gpt-4.1-mini`, `gpt-5`) in both question formats:
@@ -106,8 +108,12 @@ The `results/` directory contains the evaluated predictions for reproducing the 
 ```
 results/
 ├── multiple_choice/<model_name>_predictions.json
-└── open_ended/<model_name>_predictions.json
+└── open_ended/
+    ├── <model_name>_predictions.json
+    └── finetune/<model_name>[_wo_contr]_predictions.json
 ```
+
+`open_ended/finetune/` holds the predictions for the fine-tuned open-source models (LLaVA-1.5-7b and mPLUG-Owl-1), used for the fine-tuning table — see [Fine-tuned open-source models](#fine-tuned-open-source-models).
 
 Each entry keeps the original sample fields plus the model's `prediction` and an `evaluation` block with the `matches_*` flags that the tables aggregate.
 
@@ -165,6 +171,26 @@ python print_table_with_error_bars.py \
 ```
 
 Inference resumes from an existing predictions file, so an interrupted run can simply be restarted with the same command. Because the API models are non-deterministic, freshly generated predictions will differ slightly from the released ones.
+
+### Fine-tuned open-source models
+
+The fine-tuning table reports LLaVA-1.5-7b and mPLUG-Owl-1 before and after LoRA fine-tuning on CLASH training data, in the open-ended format. Passing `--ft_model_list` switches `print_table_with_error_bars.py` to that table (the modality-preference and category tables are skipped):
+
+```bash
+cd src
+
+python print_table_with_error_bars.py \
+  --result_dir ../results/open_ended/finetune/ \
+  --test_data_path ../data/synthetic_captions_test_filtered.json \
+  --ft_model_list llava-v1.5-7b_predictions \
+                  llava-v1.5-7b_lora_open_ended_single_predictions \
+                  llava-v1.5-7b_lora_open_ended_single_30k_predictions \
+                  mplug_owl1_predictions \
+                  mplug_owl1_lora_open_ended_single_predictions \
+                  mplug_owl1_lora_open_ended_30k_predictions
+```
+
+Each row combines two prediction files: `<model>_predictions.json` (the model sees the *conflicting* caption) and `<model>_wo_contr_predictions.json` (the same model on the *original* caption). Only the first is named on the command line — the second path is derived from it — but both must be present.
 
 ## Data
 

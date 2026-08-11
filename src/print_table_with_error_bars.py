@@ -283,15 +283,16 @@ def main():
         default=[],
     )
     args = parser.parse_args()
-    print("\n" + 40 * "-" + " MODALITY PREFERENCE TABLE " + 40 * "-" + "\n")
-    print_modality_preference_table(args, print_modalities=True)
-    print("\n" + 40 * "-" + " OBJECT CATEGORIES TABLE " + 40 * "-" + "\n")
-    print_categories_table(args, "object")
-    print("\n" + 40 * "-" + " ATTRIBUTE CATEGORIES TABLE " + 40 * "-" + "\n")
-    print_categories_table(args, "attribute")
     if args.ft_model_list:
         print("\n" + 40 * "-" + " FINETUNE TABLE " + 40 * "-" + "\n")
         print_finetune_table(args)
+    else:
+        print("\n" + 40 * "-" + " MODALITY PREFERENCE TABLE " + 40 * "-" + "\n")
+        print_modality_preference_table(args, print_modalities=True)
+        print("\n" + 40 * "-" + " OBJECT CATEGORIES TABLE " + 40 * "-" + "\n")
+        print_categories_table(args, "object")
+        print("\n" + 40 * "-" + " ATTRIBUTE CATEGORIES TABLE " + 40 * "-" + "\n")
+        print_categories_table(args, "attribute")
     # print("\n" + 40 * "-" + " LLM AS JUDGE TABLE " + 40 * "-" + "\n")
     # print_llm_as_judge_table(args)
 
