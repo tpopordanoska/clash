@@ -4,6 +4,7 @@ from pathlib import Path
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 BASE_DIR = Path("path/to/coco/dataset") # Update this path to your COCO dataset directory
+IMAGE_SPLIT = "train2017"  # COCO split the image_ids refer to
 CONTRADICTION_TEXT = "Conflicting information – cannot answer."
 
 OBJECT_CATEGORIES_NAMES = ["animals", "transportation", "food", "sports", "household", "other"]
