@@ -99,7 +99,7 @@ python print_table_with_error_bars.py \
   --test_data_path ../data/synthetic_captions_test_filtered.json
 ```
 
-By default this prints the modality-preference and category tables; `--ft_model_list` prints the fine-tuning table instead, as described in [Fine-tuned open-source models](#fine-tuned-open-source-models).
+By default this prints the modality-preference and category tables. Two cases switch it to a different table: `--ft_model_list` prints the fine-tuning table instead (see [Fine-tuned open-source models](#fine-tuned-open-source-models)), and pointing `--result_dir` at a directory named `llm_as_judge` prints only the judge-agreement table (see [LLM-as-judge agreement](#llm-as-judge-agreement)).
 
 ## Reproducing the main results
 
@@ -110,10 +110,11 @@ results/
 ├── multiple_choice/<model_name>_predictions.json
 └── open_ended/
     ├── <model_name>_predictions.json
-    └── finetune/<model_name>[_wo_contr]_predictions.json
+    ├── finetune/<model_name>[_wo_contr]_predictions.json
+    └── llm_as_judge/<model_name>_predictions.json
 ```
 
-`open_ended/finetune/` holds the predictions for the fine-tuned open-source models (LLaVA-1.5-7b and mPLUG-Owl-1), used for the fine-tuning table — see [Fine-tuned open-source models](#fine-tuned-open-source-models).
+`open_ended/finetune/` holds the predictions for the fine-tuned open-source models (LLaVA-1.5-7b and mPLUG-Owl-1), used for the fine-tuning table — see [Fine-tuned open-source models](#fine-tuned-open-source-models). `open_ended/llm_as_judge/` holds open-source model predictions scored by several LLM judges, used for the judge-agreement table — see [LLM-as-judge agreement](#llm-as-judge-agreement).
 
 Each entry keeps the original sample fields plus the model's `prediction` and an `evaluation` block with the `matches_*` flags that the tables aggregate.
 
@@ -191,6 +192,18 @@ python print_table_with_error_bars.py \
 ```
 
 Each row combines two prediction files: `<model>_predictions.json` (the model sees the *conflicting* caption) and `<model>_wo_contr_predictions.json` (the same model on the *original* caption). Only the first is named on the command line — the second path is derived from it — but both must be present.
+
+### LLM-as-judge agreement
+
+The judge-agreement table measures how much the reported open-ended numbers depend on the choice of LLM judge, by scoring the same four open-source models (InternVL1.5, LLaVA-1.5-7b, mPLUG-Owl-1, mPLUG-Owl-2) with two independent judges. Pointing `--result_dir` at a directory named `llm_as_judge` prints only this table (the modality-preference and category tables are skipped):
+
+```bash
+cd src
+
+python print_table_with_error_bars.py --result_dir ../results/open_ended/llm_as_judge/
+```
+
+Each model gets four rows — one per judge (`gemini-2.5-pro`, `gpt-5`), plus `≥1` (either judge flagged the category) and `Both` (both did).
 
 ## Data
 
