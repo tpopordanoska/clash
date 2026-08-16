@@ -274,7 +274,7 @@ If you use CLASH in your research, please cite:
 @inproceedings{popordanoska2026clash,
   title={CLASH: A benchmark for cross-modal contradiction detection},
   author={Popordanoska, Teodora and Li, Jiameng and Blaschko, Matthew B},
-  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition},
+  booktitle={Proceedings of the IEEE/CVF Conference on Computer Vision and Pattern Recognition (CVPR) Findings},
   pages={6051--6061},
   year={2026}
 }
